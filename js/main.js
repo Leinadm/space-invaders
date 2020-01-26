@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   function start() {
     game.start();
-    const startBtn = document.getElementById('start');
-    startBtn.style = "display: none";
   }
   
   game = new Game({

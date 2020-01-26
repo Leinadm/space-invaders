@@ -6,7 +6,6 @@ class Game {
     this.rows = options.rows;
     this.columns = options.columns;
     this.maxCells = options.maxCells;
-    this.food = undefined;
     this.gameOver = callback;
   }
 
@@ -17,11 +16,29 @@ class Game {
     });
   }
 
+  _assignControlsToKeys() {
+    document.addEventListener('keydown', e => {
+      switch (e.keyCode) {
+        case 37: // arror left
+          this.spaceship.goLeft();
+          break;
+        case 39: // arrow right
+          this.spaceship.goRight();
+          break;
+        case 80: // p pause
+          this.spaceship.intervalId ? this.spaceship.stop() : this.spaceship.move();
+          break;
+      }
+    });
+  }
+
   restart() {
-    this.spaceship.reset()
+    this.spaceship.reset();
   }
 
   start() {
+    this._assignControlsToKeys();
+    this.spaceship.move();
     this.interval = window.requestAnimationFrame(this._drawSpaceship.bind(this));
   }
 }
