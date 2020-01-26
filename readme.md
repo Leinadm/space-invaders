@@ -1,4 +1,4 @@
-# Iron flip run
+# Spacehacker Invasion
 
 The purpose of the game is to kill all the ovnis or spaceships and reach the highest possible score.
 
@@ -15,7 +15,7 @@ Extra: …
 
 ## MVP
 ### Technique
-Html5 __Canvas__ and __Javascript__
+Html5 __Canvas__ and Vanilla__Javascript__
 
 ### Game states
 * __Start Screen__
@@ -47,7 +47,7 @@ Html5 __Canvas__ and __Javascript__
 * If collision -> 1 live left or Game Over -> Show Game Over Screen
 
 * * *
-
+## BACK LOG
 ### Score
 * Run counter and store score on game over
 ### High score
