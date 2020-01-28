@@ -10,18 +10,18 @@ class Spaceship{
     this.intervalId = undefined;
   }
 
-  _moveForward() {
+  _moveForward(Spaceship) {
     switch (this.direction) {
       case "left":
         this.body({
-          row: this.row,
-          column: (this.column - 1 + this.maxColumns) % this.maxColumns
+          row: Spaceship.row,
+          column: (Spaceship.column - 1) % this.maxColumns
         });
         break;
       case "right":
         this.body({
-          row: this.row,
-          column: (this.column + 1) % this.maxColumns
+          row: Spaceship.row,
+          column: (Spaceship.column + 1) % this.maxColumns
         });
         break;
     }
@@ -45,7 +45,7 @@ class Spaceship{
 
   reset() {
     this.body = [...this.initialBody];
-    this.direction = 'right';
+    this.direction = undefined;
   }
 
   stop() {

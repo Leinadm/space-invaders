@@ -16,11 +16,18 @@ class Game {
     });
   }
 
+  _update() {
+    // limpiar
+    this._kh7();
+    // pintar
+    this._drawSpaceship();
+  }
+
   _assignControlsToKeys() {
     document.addEventListener('keydown', e => {
       switch (e.keyCode) {
-        case 37: // arror left
-          this.spaceship.goLeft();
+        case 37: // arrow left
+          alert('Se ha pulsado la tecla izquieda');
           break;
         case 39: // arrow right
           this.spaceship.goRight();
@@ -32,6 +39,10 @@ class Game {
     });
   }
 
+  _kh7() {
+    this.ctx.clearRect(0, 0, 1200, 800)
+  }
+
   restart() {
     this.spaceship.reset();
   }
@@ -39,6 +50,6 @@ class Game {
   start() {
     this._assignControlsToKeys();
     this.spaceship.move();
-    this.interval = window.requestAnimationFrame(this._drawSpaceship.bind(this));
+    this.interval = window.requestAnimationFrame(this._update.bind(this));
   }
 }
