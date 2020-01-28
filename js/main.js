@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let gameOver = document.getElementById("gameover");
     canvas.style = "display: none";
     gameOver.style = "display: block";
-  };
+  }
 
   function start() {
     game.start();
