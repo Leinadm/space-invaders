@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     rows: canvas.width / widthCell,
     columns: canvas.height / widthCell,
     maxCells: widthCell,
-    spaceship: new Spaceship(canvas.width / widthCell, canvas.height / widthCell),
   }, printGameOver);
 
 });

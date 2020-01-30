@@ -1,9 +1,12 @@
 class Spaceship{
-  constructor (maxRows, maxColumns){
-    this.initialBody = [
-      { row: 65, column: 50 },
-      ];
-    this.body = [...this.initialBody];
+  constructor (){
+    // this.position (x,y);
+    // x = canvas.width / widthCell;
+    // y = canvas.height / widthCell;
+    // this.initialBody = [
+    //   { row: 65, column: 50 },
+    //   ];
+    // this.body = [...this.initialBody];
     this.maxRows = maxRows;
     this.maxColumns = maxColumns;
     this.direction = undefined;
@@ -19,9 +22,10 @@ class Spaceship{
         });
         break;
       case "right":
-        this.body({
-          row: Spaceship.row,
-          column: (Spaceship.column + 1) % this.maxColumns
+        // this.body({
+        //   row: Spaceship.row,
+        //   column: (Spaceship.column + 1) % this.maxColumns
+        this.position.i++;
         });
         break;
     }
@@ -54,5 +58,9 @@ class Spaceship{
       this.intervalId = undefined;
     }
   }
+
+//   drawSpaceship(ctx) {
+// khgfkhgkhjgkhjg
+//   }
 
 }

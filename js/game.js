@@ -1,7 +1,9 @@
 class Game {
   constructor(options, callback) {
     this.ctx = options.ctx;
-    this.spaceship = options.spaceship;
+    // this.spaceship = options.spaceship;
+    this.spaceship = new Spaceship();
+    this.enemies = [];
     this.interval = undefined;
     this.rows = options.rows;
     this.columns = options.columns;
@@ -16,18 +18,29 @@ class Game {
     });
   }
 
+
   _update() {
     // limpiar
     this._kh7();
     // pintar
-    this._drawSpaceship();
+    this._drawSpaceship(); // this.spaceship.draw(ctx)
+
+//pintar fondo
+//pintar
+
+
+
+
+
+
+    this.interval = window.requestAnimationFrame(this._update.bind(this));
   }
 
   _assignControlsToKeys() {
     document.addEventListener('keydown', e => {
       switch (e.keyCode) {
         case 37: // arrow left
-          alert('Se ha pulsado la tecla izquieda');
+        this.spaceship.goLeft();
           break;
         case 39: // arrow right
           this.spaceship.goRight();
@@ -49,7 +62,6 @@ class Game {
 
   start() {
     this._assignControlsToKeys();
-    this.spaceship.move();
-    this.interval = window.requestAnimationFrame(this._update.bind(this));
+    this._update();
   }
 }
