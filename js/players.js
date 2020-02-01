@@ -1,58 +1,42 @@
 class Spaceship{
-  constructor (maxRows, maxColumns){
-    this.initialBody = [
-      { row: 65, column: 50 },
-      ];
-    this.body = [...this.initialBody];
-    this.maxRows = maxRows;
-    this.maxColumns = maxColumns;
-    this.direction = undefined;
-    this.intervalId = undefined;
+  constructor (){
+    this.position = {x: 580, y: 700 };
+    this.body = { width: 40, height: 40 };
+    this.speed = 20;
+    this.color = 'green';
   }
 
-  _moveForward(Spaceship) {
-    switch (this.direction) {
-      case "left":
-        this.body({
-          row: Spaceship.row,
-          column: (Spaceship.column - 1) % this.maxColumns
-        });
-        break;
-      case "right":
-        this.body({
-          row: Spaceship.row,
-          column: (Spaceship.column + 1) % this.maxColumns
-        });
-        break;
+  draw (ctx) {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.position.x, this.position.y, this.body.width, this.body.height);
+  }
+
+  goLeft(minX, maxX) {
+    const newPosition = this.position.x - this.speed;
+    const canMove = this.canIMove(newPosition, minX, maxX);
+
+    if (canMove === true) {
+      this.position.x = newPosition;
     }
   }
 
-  goLeft() {
-    if (this.direction = "right") {
-      this.direction = "left";
+  goRight(minX, maxX) {
+    const newPosition = this.position.x + this.speed;
+    const canMove = this.canIMove(newPosition, minX, maxX);
+
+    if (canMove) {
+      this.position.x = newPosition;
     }
   }
 
-  goRight() {
-    if (this.direction = "left") {
-      this.direction = "right";
+  shoot() {
+    // aqui creara nuevos shoots
+  }
+
+  canIMove(newPosition, minX, maxX) {
+    if(newPosition >= minX && (newPosition + this.body.width) <= maxX){
+      return true;
     }
+    return false;
   }
-
-  move() {
-    this.intervalId = setInterval(this._moveForward.bind(this), 100);
-  }
-
-  reset() {
-    this.body = [...this.initialBody];
-    this.direction = undefined;
-  }
-
-  stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = undefined;
-    }
-  }
-
 }
