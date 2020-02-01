@@ -1,67 +1,73 @@
 class Game {
-  constructor(options, callback) {
-    this.ctx = options.ctx;
-    // this.spaceship = options.spaceship;
-    this.spaceship = new Spaceship();
-    this.enemies = [];
+  constructor(ctx, maxWidth, maxHeight, onGameOver) {
+    this.ctx = ctx;
+    this.spaceship = undefined;
     this.interval = undefined;
-    this.rows = options.rows;
-    this.columns = options.columns;
-    this.maxCells = options.maxCells;
-    this.gameOver = callback;
-  }
-
-  _drawSpaceship() {
-    this.ctx.fillStyle = "green";
-    this.spaceship.body.forEach(position => {
-      this.ctx.fillRect(position.column * this.maxCells, position.row * this.maxCells, 40, 40);
-    });
+    this.minX = 0;
+    this.maxX = maxWidth;
+    this.maxY = maxHeight;
+    this.gameOver = onGameOver;
   }
 
 
   _update() {
     // limpiar
     this._kh7();
+
     // pintar
-    this._drawSpaceship(); // this.spaceship.draw(ctx)
-
-//pintar fondo
-//pintar
-
-
-
-
-
-
+    this.spaceship.draw(this.ctx);
+    
+    // comprobar colisiones
+    
+    
     this.interval = window.requestAnimationFrame(this._update.bind(this));
   }
 
   _assignControlsToKeys() {
     document.addEventListener('keydown', e => {
+      console.log(e.keyCode + e.key);
+      if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
       switch (e.keyCode) {
         case 37: // arrow left
-        this.spaceship.goLeft();
+          this.spaceship.goLeft(this.minX, this.maxX);
           break;
         case 39: // arrow right
-          this.spaceship.goRight();
+          this.spaceship.goRight(this.minX, this.maxX);
           break;
         case 80: // p pause
-          this.spaceship.intervalId ? this.spaceship.stop() : this.spaceship.move();
+          this.pause();
           break;
       }
-    });
+    },false);
   }
 
   _kh7() {
-    this.ctx.clearRect(0, 0, 1200, 800)
+    this.ctx.clearRect(0, 0, 1200, 800);
   }
 
   restart() {
-    this.spaceship.reset();
+    // reiniciar la posicion inicial de la nave
+    // eliminar a todos los enemigos
+    // eliminiar todos los disparos
+    // reiniciar score
+    //reiniciar el player
+  }
+
+  pause () {
+    // dentener intervals
+    // decirle a main pintar la pantalla de pause
+  }
+
+  continue () {
+    // arranco de nuevo el juego con los valores que tenia
+    //quito la pantalla de pause
   }
 
   start() {
+    this.spaceship = new Spaceship();
     this._assignControlsToKeys();
-    this._update();
+    this._update();    
   }
 }
