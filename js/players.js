@@ -4,11 +4,14 @@ class Spaceship{
     this.body = { width: 40, height: 40 };
     this.speed = 20;
     this.color = 'green';
+    this.shoots = [];
   }
 
   draw (ctx) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, this.body.width, this.body.height);
+    // pinto mis disparos
+
   }
 
   goLeft(minX, maxX) {
@@ -29,8 +32,8 @@ class Spaceship{
     }
   }
 
-  shoot() {
-    // aqui creara nuevos shoots
+  createShoot() {
+    this.shoots.push(new Shoot(this.position.x, this.position.y));
   }
 
   canIMove(newPosition, minX, maxX) {

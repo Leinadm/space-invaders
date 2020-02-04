@@ -2,6 +2,7 @@ class Game {
   constructor(ctx, maxWidth, maxHeight, onGameOver) {
     this.ctx = ctx;
     this.spaceship = undefined;
+    this.shoot = undefined;
     this.interval = undefined;
     this.minX = 0;
     this.maxX = maxWidth;
@@ -16,10 +17,15 @@ class Game {
 
     // pintar
     this.spaceship.draw(this.ctx);
+    this.spaceship.shoots.forEach((shoot, index) => {
+      shoot.draw(this.ctx);
+
+      if(shoot.position.y <= 0) {
+        this.spaceship.shoots.splice(index, 1);
+      }
+    });
     
     // comprobar colisiones
-    
-    
     this.interval = window.requestAnimationFrame(this._update.bind(this));
   }
 
@@ -35,6 +41,9 @@ class Game {
           break;
         case 39: // arrow right
           this.spaceship.goRight(this.minX, this.maxX);
+          break;
+        case 32: // Space
+          this.spaceship.createShoot();
           break;
         case 80: // p pause
           this.pause();
