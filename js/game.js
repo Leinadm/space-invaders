@@ -4,6 +4,7 @@ class Game {
     this.spaceship = undefined;
     this.shoot = undefined;
     this.interval = undefined;
+    this.enemies = undefined;
     this.minX = 0;
     this.maxX = maxWidth;
     this.maxY = maxHeight;
@@ -24,6 +25,8 @@ class Game {
         this.spaceship.shoots.splice(index, 1);
       }
     });
+
+    this.enemies.draw(this.ctx);
     
     // comprobar colisiones
     this.interval = window.requestAnimationFrame(this._update.bind(this));
@@ -76,6 +79,7 @@ class Game {
 
   start() {
     this.spaceship = new Spaceship();
+    this.enemies = new Enemies();
     this._assignControlsToKeys();
     this._update();    
   }
