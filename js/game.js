@@ -3,12 +3,13 @@ class Game {
     this.ctx = ctx;
     this.spaceship = undefined;
     this.shoot = undefined;
-    this.interval = undefined;
     this.enemies = undefined;
     this.minX = 0;
     this.maxX = maxWidth;
     this.maxY = maxHeight;
     this.gameOver = onGameOver;
+    this.interval = undefined;
+    this.enemiesInterval = undefined;
   }
 
 
@@ -26,8 +27,11 @@ class Game {
       }
     });
 
-    this.enemies.draw(this.ctx);
-    
+    this.enemies.forEach(enemy => {
+      enemy.draw(this.ctx);
+    });
+    // this.enemies.draw(this.ctx);
+
     // comprobar colisiones
     this.interval = window.requestAnimationFrame(this._update.bind(this));
   }
@@ -77,9 +81,34 @@ class Game {
     //quito la pantalla de pause
   }
 
+  _moveEnemies () {
+    this.enemiesInterval = setInterval(() => {
+      let direction = 'left';
+      let enemyBorder = this.maxX;
+      this.enemies.forEach(enemy => {
+        if(enemy.position.x < enemyBorder) {
+          enemyBorder = enemy.position.x;
+        }
+      });
+      this.enemies.forEach(enemy => {
+        console.log('enemyBorder :', enemyBorder);
+        if(enemyBorder > 49) {
+          enemy.goLeft();
+        } else {
+          enemy.goRight();
+        }
+      });
+    }, 500);
+  }
+
   start() {
     this.spaceship = new Spaceship();
-    this.enemies = new Enemies();
+    this.enemies = [
+      new Enemies(500, 100, 40, 'blue'), 
+      new Enemies(550, 100, 40, 'red'), 
+      new Enemies(600, 100, 40, 'green')
+    ];
+    this._moveEnemies();
     this._assignControlsToKeys();
     this._update();    
   }
